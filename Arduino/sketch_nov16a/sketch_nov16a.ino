@@ -1,16 +1,3 @@
-/*********
-  Rui Santos
-  Complete project details at https://RandomNerdTutorials.com/esp32-cam-take-photo-display-web-server/
-  
-  IMPORTANT!!! 
-   - Select Board "AI Thinker ESP32-CAM"
-   - GPIO 0 must be connected to GND to upload a sketch
-   - After connecting GPIO 0 to GND, press the ESP32-CAM on-board RESET button to put your board in flashing mode
-  
-  The above copyright notice and this permission notice shall be included in all
-  copies or substantial portions of the Software.
-*********/
-
 #include "WiFi.h"
 #include "esp_camera.h"
 #include "esp_timer.h"
@@ -25,8 +12,8 @@
 #include <FS.h>
 
 // Replace with your network credentials
-const char* ssid = "Galaxy";
-const char* password = "beheni123";
+const char* ssid = "a.maslenchenko";
+const char* password = "765432112373829";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -66,10 +53,8 @@ const char index_html[] PROGMEM = R"rawliteral(
 </head>
 <body>
   <div id="container">
-    <h2>ESP32-CAM Last Photo</h2>
-    <p>It might take more than 5 seconds to capture a photo.</p>
+    <h2>ESP32-CAM Take One Photo</h2>
     <p>
-      <button onclick="rotatePhoto();">ROTATE</button>
       <button onclick="capturePhoto()">CAPTURE PHOTO</button>
       <button onclick="location.reload();">REFRESH PAGE</button>
     </p>
@@ -83,14 +68,6 @@ const char index_html[] PROGMEM = R"rawliteral(
     xhr.open('GET', "/capture", true);
     xhr.send();
   }
-  function rotatePhoto() {
-    var img = document.getElementById("photo");
-    deg += 90;
-    if(isOdd(deg/90)){ document.getElementById("container").className = "vert"; }
-    else{ document.getElementById("container").className = "hori"; }
-    img.style.transform = "rotate(" + deg + "deg)";
-  }
-  function isOdd(n) { return Math.abs(n % 2) == 1; }
 </script>
 </html>)rawliteral";
 
@@ -197,19 +174,14 @@ bool checkPhoto( fs::FS &fs ) {
 void capturePhotoSaveSpiffs( void ) {
   camera_fb_t * fb = NULL; // pointer
   bool ok = 0; // Boolean indicating if the picture has been taken correctly
-
   do {
     // Take a photo with the camera
-    Serial.println("Taking a photo...");
-
     fb = esp_camera_fb_get();
     if (!fb) {
       Serial.println("Camera capture failed");
       return;
     }
 
-    // Photo file name
-    Serial.printf("Picture file name: %s\n", FILE_PHOTO);
     File file = SPIFFS.open(FILE_PHOTO, FILE_WRITE);
 
     // Insert the data in the photo file
@@ -218,11 +190,6 @@ void capturePhotoSaveSpiffs( void ) {
     }
     else {
       file.write(fb->buf, fb->len); // payload (image), payload length
-      Serial.print("The picture has been saved in ");
-      Serial.print(FILE_PHOTO);
-      Serial.print(" - Size: ");
-      Serial.print(file.size());
-      Serial.println(" bytes");
     }
     // Close the file
     file.close();
