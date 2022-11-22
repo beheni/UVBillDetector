@@ -48,13 +48,17 @@ int main(void)
     }
 
 
+
     /* \x1b[2J\x1b[;H - ANSI ESC sequence for clear screen */
     printf("\x1b[2J\x1b[;H");
 
-    printf("This is finally working \r\n\n");
+    printf("This is finally working!!!!! \r\n\n");
     printf("YAAAAY \r\n\n");
 
-    cyhal_gpio_init(CYBSP_A12, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_ON);
+    cyhal_gpio_init(CYBSP_A12, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, false);
+    cyhal_gpio_init(CYBSP_A10, CYHAL_GPIO_DIR_OUTPUT, CYHAL_GPIO_DRIVE_STRONG, true);
+    cyhal_gpio_toggle(CYBSP_A12);
+//    cyhal_gpio_toggle(CYBSP_A10);
 
     for (;;)
     {
@@ -63,7 +67,10 @@ int main(void)
         {
             if (uart_read_value == '\r')
             {
-            	cyhal_gpio_toggle(CYBSP_A12);
+//            	cyhal_gpio_toggle(CYBSP_A12);
+            	cyhal_gpio_write(CYBSP_A10, true);
+            	cyhal_system_delay_ms(100);
+            	cyhal_gpio_write(CYBSP_A10, false);
             	};
             }
     }
