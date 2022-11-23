@@ -20,7 +20,7 @@ const char* password = "beheni123";
 AsyncWebServer server(80);
 
 boolean takeNewPhoto = false;
-#define GPIO_INTERR   14
+int GPIO_INTERR = 2;
 
 // Photo File Name to save in SPIFFS
 #define FILE_PHOTO "/photo.jpg"
@@ -138,7 +138,7 @@ void setup() {
   }
   // Camera init
 
-  gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
+  //gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
   esp_err_t err = esp_camera_init(&config);
 
   if (err != ESP_OK) {
@@ -167,11 +167,21 @@ void setup() {
 
 void loop() {
   value = digitalRead(GPIO_INTERR);
+  Serial.println("value");
   Serial.println(value);
   Serial.println(value);
   Serial.println(value);
+  Serial.println("out of if takeNewPhoto");
+  Serial.println(takeNewPhoto);
+  Serial.println(takeNewPhoto);
+  Serial.println(takeNewPhoto);
   if(value==0){
-    takeNewPhoto = true;}
+    takeNewPhoto = true;
+    Serial.println("takeNewPhoto inside if");
+    Serial.println(takeNewPhoto);
+    Serial.println(takeNewPhoto);
+    Serial.println(takeNewPhoto);
+   }
   if (takeNewPhoto) {
     capturePhotoSaveSpiffs();
     delay(100);
