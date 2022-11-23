@@ -11,14 +11,16 @@
 #include <SPIFFS.h>
 #include <FS.h>
 
+int value = 1;
 // Replace with your network credentials
-const char* ssid = "a.maslenchenko";
-const char* password = "765432112373829";
+const char* ssid = "Galaxy";
+const char* password = "beheni123";
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
 
 boolean takeNewPhoto = false;
+#define GPIO_INTERR   14
 
 // Photo File Name to save in SPIFFS
 #define FILE_PHOTO "/photo.jpg"
@@ -72,6 +74,11 @@ const char index_html[] PROGMEM = R"rawliteral(
 </html>)rawliteral";
 
 void setup() {
+
+  //interrupt for making new photo
+  pinMode(GPIO_INTERR, INPUT_PULLUP);
+//  attachInterrupt(GPIO_INTERR, inter, FALLING);
+  
   // Serial port for debugging purposes
   Serial.begin(115200);
 
@@ -130,7 +137,10 @@ void setup() {
     config.fb_count = 1;
   }
   // Camera init
+
+  gpio_install_isr_service(ESP_INTR_FLAG_IRAM);
   esp_err_t err = esp_camera_init(&config);
+
   if (err != ESP_OK) {
     Serial.printf("Camera init failed with error 0x%x", err);
     ESP.restart();
@@ -156,8 +166,15 @@ void setup() {
 }
 
 void loop() {
+  value = digitalRead(GPIO_INTERR);
+  Serial.println(value);
+  Serial.println(value);
+  Serial.println(value);
+  if(value==0){
+    takeNewPhoto = true;}
   if (takeNewPhoto) {
     capturePhotoSaveSpiffs();
+    delay(100);
     takeNewPhoto = false;
   }
   delay(1);
@@ -199,3 +216,7 @@ void capturePhotoSaveSpiffs( void ) {
     ok = checkPhoto(SPIFFS);
   } while ( !ok );
 }
+
+//void inter(){
+//  takeNewPhoto = true;
+//}
