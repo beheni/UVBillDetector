@@ -1,3 +1,5 @@
+'''Prepare dataset and save it to not generate it again'''
+
 import numpy as np
 # import matplotlib.pyplot as plt
 import os
