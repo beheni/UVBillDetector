@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/CMakeFiles/bootloader
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/CMakeFiles/bootloader.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/CMakeFiles/bootloader-complete.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+D:/Development/embedded/ESP32/aws-csdk-mqtt-rekognition/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule

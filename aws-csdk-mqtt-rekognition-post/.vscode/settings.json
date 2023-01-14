@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.rmd": "rmarkdown",
+        "*.Rmd": "rmd",
+        "esp_event_loop.h": "c"
+    }
+}
