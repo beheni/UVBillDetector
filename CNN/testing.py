@@ -12,7 +12,7 @@ def prepare(filepath):
 
 
 model = tf.keras.models.load_model('detector.model')
-prediction = model.predict([prepare('test/false/photo1670792162 (1).jpeg')])
+prediction = model.predict([prepare('test/false/66.jpg')])
 print(categories[int(prediction[0][0])])
-prediction1 = model.predict([prepare('test_photo_1.jpeg')])
+prediction1 = model.predict([prepare('test/true/11.jpg')])
 print(categories[int(prediction1[0][0])])

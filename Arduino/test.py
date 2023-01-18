@@ -6,8 +6,8 @@ import test_for_one
 
 def prepare_and_test():
     ## Set up the image URL and filename
-    image_url = "http://192.168.182.237/photo.jpg"
-    filename = image_url.split("/")[-1]
+    image_url = "http://172.20.10.14/saved-photo"
+    filename = image_url.split("/")[-1] + ".jpg"
 
     # Open the url image, set stream to True, this will return the stream content.
     r = requests.get(image_url, stream=True)
@@ -22,6 +22,5 @@ def prepare_and_test():
             shutil.copyfileobj(r.raw, f)
 
         print('Image sucessfully Downloaded: ', filename)
-        return test_for_one.predict(filename)
     else:
         print('Image Couldn\'t be retreived')
