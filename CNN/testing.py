@@ -11,7 +11,7 @@ def prepare(filepath):
     return new_array.reshape(-1, IMG_SIZE, IMG_SIZE, 3)
 
 
-model = tf.keras.models.load_model('detector.model')
+model = tf.keras.models.load_model('../Arduino/detector.model')
 prediction = model.predict([prepare('test/false/66.jpg')])
 print(categories[int(prediction[0][0])])
 prediction1 = model.predict([prepare('test/true/11.jpg')])
